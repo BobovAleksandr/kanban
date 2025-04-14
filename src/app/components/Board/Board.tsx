@@ -1,16 +1,23 @@
-import { ColumnProps } from "../Column/Column"
-import Column from "../Column/Column"
+"use client";
 
-type BoardProps = {
-  id: string;
-  columns: string[];
-}
+import useKanbanStore from "@/app/store/store";
+import Column from "@/app/components/Column/Column";
 
 export default function Board() {
+  const columns = useKanbanStore((state) => state.columns);
+
   return (
-    <li className="rounded-lg p-4 h-4 bg-yellow-100">
-      <Column />
-      board 1
-    </li>
-  )
+    <main className="flex list-none w-full justify-center">
+      <ul className="flex gap-6">
+        {Object.values(columns).map((column) => (
+          <Column
+            key={column.id}
+            id={column.id}
+            title={column.title}
+            cardIds={column.cardIds}
+          />
+        ))}
+      </ul>
+    </main>
+  );
 }
