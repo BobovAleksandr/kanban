@@ -26,10 +26,11 @@ export type TTag = {
 }
 
 export type TState = {
-  updateTheme: any;
   boards: Record<string, TBoard>;
   columns: Record<string, TColumn>;
   cards: Record<string, TCard>;
   tags: Record<string, TTag>;
+  updateTheme: (id: string, description: string) => void;
   updateDescription: (id: string, description: string) => void;
+  deleteCard: (id: string) => void;
 }

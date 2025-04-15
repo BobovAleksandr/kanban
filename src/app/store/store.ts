@@ -118,8 +118,29 @@ const useKanbanStore = create<TState>(() => ({
         }
       }
     }))
+  },
+  deleteCard: (id: string) => {
+    useKanbanStore.setState(state => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { [id]: _, ...restCards } = state.cards;
+      const updatedColumns = { ...state.columns };
+      Object.keys(updatedColumns).forEach((columnId) => {
+        updatedColumns[columnId] = {
+          ...updatedColumns[columnId],
+          cardIds: updatedColumns[columnId].cardIds.filter((cardId) => cardId !== id),
+        };
+      });
+
+      return {
+        cards: restCards,
+        columns: updatedColumns,
+      };
+    })
   }
 }))
+
+
+// selectors
 
 export const selectCards = (state: TState) => state.cards;
 export const selectBoards = (state: TState) => state.boards;

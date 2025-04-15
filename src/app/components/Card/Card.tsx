@@ -2,28 +2,16 @@
 
 import Image from "next/image";
 import { TCard } from "@/app/types";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { CardSheetContent } from "../CardSheetContent/CardSheetContent";
 import { Badge } from "@/components/ui/badge";
 
-
-export default function Card({
-  id,
-  image,
-  theme,
-  description,
-  tags,
-  onDelete,
-}: TCard) {
+export default function Card({ id, image, theme, description, tags }: TCard) {
   return (
     <Sheet>
       <SheetContent className="sm:max-w-120">
         <CardSheetContent
-          id={id} 
+          id={id}
           image={image}
           theme={theme}
           description={description}
@@ -31,10 +19,12 @@ export default function Card({
         />
       </SheetContent>
       <SheetTrigger asChild>
-        <li className="relative group flex grow flex-col gap-4 bg-white rounded-lg p-2 border-1 hover:cursor-pointer">
-          {theme && <p className="text-sm text-blue-300">
-            {theme}
-          </p>}
+        <li className="relative group flex flex-col gap-4 bg-white rounded-lg p-2 border-1 hover:cursor-pointer">
+          {theme && (
+            <p className="text-sm text-(--ring) overflow-hidden text-ellipsis text-nowrap">
+              {theme}
+            </p>
+          )}
           {image && (
             <div className="w-full relative aspect-[16/9] rounded-lg overflow-hidden">
               <Image
