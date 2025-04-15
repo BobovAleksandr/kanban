@@ -8,6 +8,7 @@ export type TColumn = {
   id: string;
   title: string,
   cardIds: string[];
+  titleColor: string,
 }
 
 export type TCard = {
@@ -30,7 +31,8 @@ export type TState = {
   columns: Record<string, TColumn>;
   cards: Record<string, TCard>;
   tags: Record<string, TTag>;
-  updateTheme: (id: string, description: string) => void;
-  updateDescription: (id: string, description: string) => void;
+  updateCardTheme: (id: string, description: string) => void;
+  updateCardDescription: (id: string, description: string) => void;
+  updateColumnTitle: (id: string, title: string) => void;
   deleteCard: (id: string) => void;
 }

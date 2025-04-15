@@ -15,6 +15,7 @@ export default function Board() {
             id={column.id}
             title={column.title}
             cardIds={column.cardIds}
+            titleColor={column.titleColor}
           />
         ))}
       </ul>

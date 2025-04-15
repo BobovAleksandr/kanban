@@ -36,8 +36,8 @@ export function CardSheetContent({
   const [descriptionText, setDescriptionText] = useState(description);
   const [themeText, setThemeText] = useState(theme);
 
-  const updateCardtext = useKanbanStore((state) => state.updateDescription);
-  const updateThemetext = useKanbanStore((state) => state.updateTheme);
+  const updateCardText = useKanbanStore((state) => state.updateCardDescription);
+  const updateThemeText = useKanbanStore((state) => state.updateCardTheme);
   const deleteCard = useKanbanStore((state) => state.deleteCard);
   const themes = useKanbanStore(useShallow(selectAllThemes));
 
@@ -45,9 +45,9 @@ export function CardSheetContent({
     // Update image logic here
   };
 
-  const handleThemeChagne = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleThemeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
-    updateThemetext(id, newValue);
+    updateThemeText(id, newValue);
     setThemeText(newValue);
   };
 
@@ -60,7 +60,7 @@ export function CardSheetContent({
       event.target.value = descriptionText;
       toast.error("Поле текста задачи не может быть пустым");
     } else {
-      updateCardtext(id, newValue);
+      updateCardText(id, newValue);
       setDescriptionText(newValue);
     }
   };
@@ -102,7 +102,7 @@ export function CardSheetContent({
             maxLength={100}
             defaultValue={themeText ?? ""}
             list="theme-suggestions"
-            onBlur={handleThemeChagne}
+            onBlur={handleThemeChange}
             className="hover:border-inherit transition-all duration-200 border-accent shadow-none"
           />
           <datalist id="theme-suggestions">

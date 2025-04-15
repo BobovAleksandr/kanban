@@ -15,21 +15,25 @@ const initialState = {
     "column-1": {
       id: "column-1",
       title: "Upcoming",
+      titleColor: "#fff",
       cardIds: ["card-1", "card-5"]
     },
     "column-2": {
       id: "column-2",
       title: "In work",
+      titleColor: "#fff",
       cardIds: ["card-2"]
     },
     "column-3": {
       id: "column-3",
       title: "Fix",
+      titleColor: "#fff",
       cardIds: ["card-3"]
     },
     "column-4": {
       id: "column-4",
       title: "Done",
+      titleColor: "#fff",
       cardIds: ["card-4"]
     },
   },
@@ -97,7 +101,18 @@ const initialState = {
 }
 const useKanbanStore = create<TState>(() => ({
   ...initialState,
-  updateDescription: (id: string, description: string) => {
+  updateColumnTitle: (id: string, title: string) => {
+    useKanbanStore.setState((state) => ({
+      columns: {
+        ...state.columns,
+        [id]: {
+          ...state.columns[id],
+          title
+        }
+      }
+    }))
+  },
+  updateCardDescription: (id: string, description: string) => {
     useKanbanStore.setState((state) => ({
       cards: {
         ...state.cards,
@@ -108,7 +123,7 @@ const useKanbanStore = create<TState>(() => ({
       }
     }))
   },
-  updateTheme: (id: string, theme: string) => {
+  updateCardTheme: (id: string, theme: string) => {
     useKanbanStore.setState(state => ({
       cards: {
         ...state.cards,
@@ -130,7 +145,6 @@ const useKanbanStore = create<TState>(() => ({
           cardIds: updatedColumns[columnId].cardIds.filter((cardId) => cardId !== id),
         };
       });
-
       return {
         cards: restCards,
         columns: updatedColumns,
