@@ -13,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className="bg-gray-100 grid grid-cols-1 place-items-center p-8">
+      <body className="bg-gray-100 grid grid-cols-1 place-items-center p-4 relative">
         {children}
       </body>
     </html>
