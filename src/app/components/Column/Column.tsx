@@ -12,11 +12,12 @@ import ColumnSheetContent from "@/app/components/ColumnSheetContent/ColumnSheetC
 export default function Column({id, title, cardIds, titleColor}: TColumn) {
   const cards = useKanbanStore(selectCards);
 
-
   return (
     <li className="max-w-[300px] w-full flex-shrink-0">
       <section className="relative group bg-white rounded-lg p-4">
-        <h2 className="text-lg font-bold mb-4 text-center">{title}</h2>
+        <h2 className="text-lg font-bold mb-4 text-center block rounded-lg" style={{backgroundColor: titleColor}}>
+          {title}
+          </h2>
         <Sheet>
           <SheetContent className="sm:max-w-120">
             <ColumnSheetContent
@@ -30,7 +31,7 @@ export default function Column({id, title, cardIds, titleColor}: TColumn) {
             <Button
               variant="ghost"
               size="icon"
-              className="absolute right-4 top-4 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+              className="absolute right-4 top-4 w-7 h-7 opacity-0 group-hover:opacity-100 transition-all duration-200"
             >
               <Menu/>
             </Button>

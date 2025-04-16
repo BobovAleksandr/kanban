@@ -34,5 +34,7 @@ export type TState = {
   updateCardTheme: (id: string, description: string) => void;
   updateCardDescription: (id: string, description: string) => void;
   updateColumnTitle: (id: string, title: string) => void;
+  updateColumnTitleColor: (id: string, color: string) => void;
   deleteCard: (id: string) => void;
+  deleteColumn: (id: string) => void;
 }

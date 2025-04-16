@@ -17,6 +17,7 @@ import {
   PopoverTrigger,
   PopoverClose,
 } from "@/components/ui/popover";
+import DeletePopover from "../DeletePopover";
 
 interface CardSheetContentProps {
   id: string;
@@ -102,7 +103,7 @@ export function CardSheetContent({
             maxLength={100}
             defaultValue={themeText ?? ""}
             list="theme-suggestions"
-            onBlur={handleThemeChange}
+            onChange={handleThemeChange}
             className="hover:border-inherit transition-all duration-200 border-accent shadow-none"
           />
           <datalist id="theme-suggestions">
@@ -129,42 +130,7 @@ export function CardSheetContent({
           </div>
         )}
       </div>
-
-      <Popover modal={true}>
-        <PopoverTrigger className="mt-auto">
-          <Button
-            variant="outline"
-            type="button"
-            className="p-4 mt-auto ml-auto w-full"
-          >
-            Удалить задачу
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="flex flex-col items-center gap-4 w-72">
-          <p>Удалить задачу?</p>
-          <div className="flex gap-4">
-            <Button
-              onClick={() => {
-                deleteCard(id);
-              }}
-              type="button"
-              className="w-30 p-4 mt-auto ml-auto"
-            >
-              Удалить
-            </Button>
-            <PopoverClose>
-              <Button
-                variant="outline"
-                onClick={() => {}}
-                type="button"
-                className="w-30 p-4 mt-auto ml-auto"
-              >
-                Отмена
-              </Button>
-            </PopoverClose>
-          </div>
-        </PopoverContent>
-      </Popover>
+      <DeletePopover id={id} buttonTitle="Удалить карточку" onDelete={deleteCard} />
     </div>
   );
 }
