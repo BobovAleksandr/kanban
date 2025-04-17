@@ -1,7 +1,6 @@
-
-import { create } from 'zustand'
-import { TState } from '../types';
-import { devtools } from 'zustand/middleware';
+import {create} from 'zustand'
+import {TState} from '../types';
+import {devtools} from 'zustand/middleware';
 
 
 const initialState = {
@@ -42,47 +41,52 @@ const initialState = {
     "card-1": {
       id: "card-1",
       theme: "",
-      image: "/images/image-1.jpg",
+      imageUrl: "/images/image-1.jpg",
       description: "Task 1 with some description",
       tags: ["soon", "asap", "warning"],
       deadline: "06-06-06",
-      onDelete: () => { }
+      onDelete: () => {
+      }
     },
     "card-2": {
       id: "card-2",
       theme: "theme-2",
-      image: "",
+      imageUrl: "",
       description: "Task 2 with some description",
       tags: ["soon", "asap", "warning"],
       deadline: "06-06-06",
-      onDelete: () => { }
+      onDelete: () => {
+      }
     },
     "card-3": {
       id: "card-3",
       theme: "theme-3",
-      image: "/images/image-3.jpg",
+      imageUrl: "/images/image-3.jpg",
       description: "Task 3 with some description",
       tags: ["soon", "asap", "warning"],
       deadline: "06-06-06",
-      onDelete: () => { }
+      onDelete: () => {
+      }
     },
     "card-4": {
       id: "card-4",
       theme: "theme-4",
-      image: "/images/image-4.jpg",
+      imageUrl: "/images/image-4.jpg",
       description: "Task 4 with some description",
       tags: [],
       deadline: "06-06-06",
-      onDelete: () => { }
+      onDelete: () => {
+      }
     },
     "card-5": {
       id: "card-5",
       theme: "theme-5",
-      image: "/images/image-4.jpg",
+      imageUrl: "/images/image-4.jpg",
       description: "Task 5 with some description",
       tags: ["soon", "asap", "warning"],
       deadline: "06-06-06",
-      onDelete: () => { }
+      onDelete: () => {
+      }
     },
   },
   tags: {
@@ -150,6 +154,21 @@ const useKanbanStore = create<TState>()(
           'updateCardDescription'
         );
       },
+      updateCardImage: (id: string, imageUrl: string) => {
+        set(
+          (state) => ({
+            cards: {
+              ...state.cards,
+              [id]: {
+                ...state.cards[id],
+                imageUrl
+              }
+            }
+          }),
+          false,
+          'updateCardImage'
+        );
+      },
       updateCardTheme: (id: string, theme: string) => {
         set(
           (state) => ({
@@ -169,8 +188,8 @@ const useKanbanStore = create<TState>()(
         set(
           (state) => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { [id]: _, ...restCards } = state.cards;
-            const updatedColumns = { ...state.columns };
+            const {[id]: _, ...restCards} = state.cards;
+            const updatedColumns = {...state.columns};
             Object.keys(updatedColumns).forEach((columnId) => {
               updatedColumns[columnId] = {
                 ...updatedColumns[columnId],
@@ -189,24 +208,22 @@ const useKanbanStore = create<TState>()(
       deleteColumn: (id: string) => {
         set(
           (state) => {
-            const { [id]: _, ...remainingColumns } = state.columns;
 
-            const updatedBoards = { ...state.boards };
+            const {[id]: deletedColumn, ...remainingColumns} = state.columns;
+            const cardsToRemove = deletedColumn.cardIds;
+
+            const updatedCards = {...state.cards};
+            cardsToRemove.forEach(cardId => {
+              delete updatedCards[cardId];
+            });
+
+            const updatedBoards = {...state.boards};
             Object.keys(updatedBoards).forEach(boardId => {
               updatedBoards[boardId] = {
                 ...updatedBoards[boardId],
                 columnIds: updatedBoards[boardId].columnIds.filter(columnId => columnId !== id)
               };
             });
-// Карточка не удаляется из cards
-            const cardsInOtherColumns = Object.values(state.columns)
-              .flatMap(col => col.cardIds)
-              .filter(colId => colId !== id);
-
-            const cardsToKeep = new Set(cardsInOtherColumns);
-            const updatedCards = Object.fromEntries(
-              Object.entries(state.cards).filter(([cardId]) => cardsToKeep.has(cardId))
-            );
 
             return {
               columns: remainingColumns,

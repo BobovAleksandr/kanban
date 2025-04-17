@@ -1,6 +1,6 @@
 "use client";
 
-import Board from "@/app/components/Board/Board";
+import Board from "@/app/components/Board";
 import useKanbanStore from "./store/store";
 import { selectBoards } from "./store/store";
 

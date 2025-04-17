@@ -4,11 +4,11 @@ import { TColumn } from "@/app/types";
 import { Input } from "@/components/ui/input";
 import { SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import useKanbanStore from "@/app/store/store";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label"
 import { toast } from "sonner";
 import useDebounce from "@/hooks/useDebounce";
-import DeletePopover from "../DeletePopover";
+import DeletePopover from "./DeletePopover";
 
 export default function ColumnSheetContent({ id, title, titleColor }: TColumn) {
 
@@ -46,8 +46,15 @@ export default function ColumnSheetContent({ id, title, titleColor }: TColumn) {
     updateTitle(id, debouncedTitle);
   }, [id, debouncedTitle, updateTitle])
 
+  useEffect(() => {
+    console.log('Тест в компоненте');
+    console.warn('Тест warn');
+    console.error('Тест error');
+    console.log('Тип console.log:', console.log.toString()); // Должно быть "function log() { [native code] }"
+  }, []);
+
   return (
-    <div className="p-4 flex flex-col h-full justify-between">
+    <div className="p-4 flex flex-col h-full justify-between gap-8">
       <div className="pt-8 flex gap-4 flex-col">
         <div className="text-sm text-(--ring)">
           <SheetTitle>
@@ -64,7 +71,7 @@ export default function ColumnSheetContent({ id, title, titleColor }: TColumn) {
           </SheetTitle>
           <SheetDescription>
             <Label htmlFor="color" className="mb-2 text-accent-foreground">Цвет заголовка</Label>
-            <Input id="color" type="color" value={columnTitleColor} onChange={handleChangeTitleColor} />
+            <Input className="max-w-1/2" type="color" value={columnTitleColor} onChange={handleChangeTitleColor} />
           </SheetDescription>
         </div>
       </div>

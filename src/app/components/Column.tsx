@@ -1,13 +1,13 @@
 "use client";
 
 import useKanbanStore from "@/app/store/store";
-import Card from "../Card/Card";
+import Card from "./Card";
 import {TColumn} from "@/app/types";
 import {selectCards} from "@/app/store/store";
 import {Button} from "@/components/ui/button";
 import {Menu} from "lucide-react";
 import {Sheet, SheetContent, SheetTrigger} from "@/components/ui/sheet";
-import ColumnSheetContent from "@/app/components/ColumnSheetContent/ColumnSheetContent";
+import ColumnSheetContent from "@/app/components/ColumnSheetContent";
 
 export default function Column({id, title, cardIds, titleColor}: TColumn) {
   const cards = useKanbanStore(selectCards);
@@ -46,7 +46,7 @@ export default function Column({id, title, cardIds, titleColor}: TColumn) {
                 key={card.id}
                 id={card.id}
                 description={card.description}
-                image={card.image}
+                imageUrl={card.imageUrl}
                 deadline={card.deadline}
                 onDelete={() => {
                 }}

@@ -14,7 +14,7 @@ export type TColumn = {
 export type TCard = {
   id: string;
   theme?: string;
-  image?: string;
+  imageUrl?: string;
   description: string;
   tags?: string[];
   deadline?: string;
@@ -33,6 +33,7 @@ export type TState = {
   tags: Record<string, TTag>;
   updateCardTheme: (id: string, description: string) => void;
   updateCardDescription: (id: string, description: string) => void;
+  updateCardImage: (id: string, imageUrl: string) => void;
   updateColumnTitle: (id: string, title: string) => void;
   updateColumnTitleColor: (id: string, color: string) => void;
   deleteCard: (id: string) => void;

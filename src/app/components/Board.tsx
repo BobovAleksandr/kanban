@@ -1,7 +1,7 @@
 "use client";
 
 import useKanbanStore from "@/app/store/store";
-import Column from "@/app/components/Column/Column";
+import Column from "@/app/components/Column";
 
 export default function Board() {
   const columns = useKanbanStore((state) => state.columns);

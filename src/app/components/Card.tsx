@@ -3,16 +3,16 @@
 import Image from "next/image";
 import { TCard } from "@/app/types";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { CardSheetContent } from "../CardSheetContent/CardSheetContent";
+import { CardSheetContent } from "./CardSheetContent";
 import { Badge } from "@/components/ui/badge";
 
-export default function Card({ id, image, theme, description, tags }: TCard) {
+export default function Card({ id, imageUrl, theme, description, tags }: TCard) {
   return (
     <Sheet>
       <SheetContent className="sm:max-w-120">
         <CardSheetContent
           id={id}
-          image={image}
+          imageUrl={imageUrl}
           theme={theme}
           description={description}
           tags={tags}
@@ -25,10 +25,10 @@ export default function Card({ id, image, theme, description, tags }: TCard) {
               {theme}
             </p>
           )}
-          {image && (
+          {imageUrl && (
             <div className="w-full relative aspect-[16/9] rounded-lg overflow-hidden">
               <Image
-                src={image}
+                src={imageUrl}
                 alt="task"
                 fill
                 className="object-cover object-center block"
