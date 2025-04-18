@@ -1,114 +1,12 @@
 import { create } from 'zustand'
 import { TCard, TColumn, TState } from '../types';
 import { devtools } from 'zustand/middleware';
-
-
-const initialState = {
-  boards: {
-    "board-1": {
-      id: "board-1",
-      title: "New Board",
-      columnIds: ["column-1", "column-2", "column-3", "column-4"]
-    }
-  },
-  columns: {
-    "column-1": {
-      id: "column-1",
-      title: "Upcoming",
-      titleColor: "#FFFACD",
-      cardIds: ["card-1", "card-5"]
-    },
-    "column-2": {
-      id: "column-2",
-      title: "In work",
-      titleColor: "#B0E0E6",
-      cardIds: ["card-2"]
-    },
-    "column-3": {
-      id: "column-3",
-      title: "Fix",
-      titleColor: "#F08080",
-      cardIds: ["card-3"]
-    },
-    "column-4": {
-      id: "column-4",
-      title: "Done",
-      titleColor: "#98FB98",
-      cardIds: ["card-4"]
-    },
-  },
-  cards: {
-    "card-1": {
-      id: "card-1",
-      theme: "",
-      imageUrl: "/images/image-1.jpg",
-      description: "Task 1 with some description",
-      tags: ["soon", "asap", "warning"],
-      deadline: "06-06-06",
-      onDelete: () => {
-      }
-    },
-    "card-2": {
-      id: "card-2",
-      theme: "theme-2",
-      imageUrl: "",
-      description: "Task 2 with some description",
-      tags: ["soon", "asap", "warning"],
-      deadline: "06-06-06",
-      onDelete: () => {
-      }
-    },
-    "card-3": {
-      id: "card-3",
-      theme: "theme-3",
-      imageUrl: "/images/image-3.jpg",
-      description: "Task 3 with some description",
-      tags: ["soon", "asap", "warning"],
-      deadline: "06-06-06",
-      onDelete: () => {
-      }
-    },
-    "card-4": {
-      id: "card-4",
-      theme: "theme-4",
-      imageUrl: "/images/image-4.jpg",
-      description: "Task 4 with some description",
-      tags: [],
-      deadline: "06-06-06",
-      onDelete: () => {
-      }
-    },
-    "card-5": {
-      id: "card-5",
-      theme: "theme-5",
-      imageUrl: "/images/image-4.jpg",
-      description: "Task 5 with some description",
-      tags: ["soon", "asap", "warning"],
-      deadline: "06-06-06",
-      onDelete: () => {
-      }
-    },
-  },
-  tags: {
-    "Важно": {
-      id: "important",
-      color: "red"
-    },
-    "Не срочно": {
-      id: "not urgent",
-      color: "lightblue"
-    },
-    "Заметка": {
-      id: "note",
-      color: "lightyellow"
-    }
-  }
-}
+import { INITIAL_STATE } from '@/lib/mock';
 
 const useKanbanStore = create<TState>()(
   devtools( // Оборачиваем весь store в devtools
     (set, get) => ({
-      ...initialState,
+      ...INITIAL_STATE,
       updateColumnTitle: (id: string, title: string) => {
         set(
           (state) => ({

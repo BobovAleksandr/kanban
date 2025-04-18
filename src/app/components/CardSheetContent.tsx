@@ -82,7 +82,7 @@ export function CardSheetContent({
     if (newValue === description) return;
     if (newValue.trim() === "") {
       event.target.value = description;
-      toast.error("Поле текста задачи не может быть пустым");
+      toast.error("Описание карточки не может быть пустым");
     } else {
       updateCardText(id, newValue);
     }
