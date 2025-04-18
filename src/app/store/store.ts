@@ -1,6 +1,6 @@
-import {create} from 'zustand'
-import {TState} from '../types';
-import {devtools} from 'zustand/middleware';
+import { create } from 'zustand'
+import { TCard, TColumn, TState } from '../types';
+import { devtools } from 'zustand/middleware';
 
 
 const initialState = {
@@ -184,12 +184,31 @@ const useKanbanStore = create<TState>()(
           'updateCardTheme'
         );
       },
+
+      addCard: (columnId: string, card: TCard) => {
+        set((state) => ({
+          cards: {
+            ...state.cards,
+            [card.id]: card
+          },
+          columns: {
+            ...state.columns,
+            [columnId]: {
+              ...state.columns[columnId],
+              cardIds: [...state.columns[columnId].cardIds, card.id]
+            }
+          }
+        }),
+          false,
+          'addCard'
+        )
+      },
       deleteCard: (id: string) => {
         set(
           (state) => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const {[id]: _, ...restCards} = state.cards;
-            const updatedColumns = {...state.columns};
+            const { [id]: _, ...restCards } = state.cards;
+            const updatedColumns = { ...state.columns };
             Object.keys(updatedColumns).forEach((columnId) => {
               updatedColumns[columnId] = {
                 ...updatedColumns[columnId],
@@ -205,19 +224,28 @@ const useKanbanStore = create<TState>()(
           'deleteCard'
         );
       },
+      addColumn: (columnData: TColumn) => {
+        set((state) => ({
+          columns: {
+            ...state.columns,
+            [columnData.id]: columnData
+          }
+        }),
+        false,
+        'addColumn')
+      },
       deleteColumn: (id: string) => {
         set(
           (state) => {
-
-            const {[id]: deletedColumn, ...remainingColumns} = state.columns;
+            const { [id]: deletedColumn, ...remainingColumns } = state.columns;
             const cardsToRemove = deletedColumn.cardIds;
 
-            const updatedCards = {...state.cards};
+            const updatedCards = { ...state.cards };
             cardsToRemove.forEach(cardId => {
               delete updatedCards[cardId];
             });
 
-            const updatedBoards = {...state.boards};
+            const updatedBoards = { ...state.boards };
             Object.keys(updatedBoards).forEach(boardId => {
               updatedBoards[boardId] = {
                 ...updatedBoards[boardId],
@@ -248,6 +276,7 @@ const useKanbanStore = create<TState>()(
 
 export const selectCards = (state: TState) => state.cards;
 export const selectBoards = (state: TState) => state.boards;
+export const selectColumns = (state: TState) => state.columns;
 export const selectColumnById = (id: string) => (state: TState) => state.columns[id];
 export const selectBoardById = (id: string) => (state: TState) => state.boards[id];
 export const selectCardById = (id: string) => (state: TState) => state.cards[id];

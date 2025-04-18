@@ -36,6 +36,8 @@ export type TState = {
   updateCardImage: (id: string, imageUrl: string) => void;
   updateColumnTitle: (id: string, title: string) => void;
   updateColumnTitleColor: (id: string, color: string) => void;
+  addCard: (id: string, card: TCard) => void;
   deleteCard: (id: string) => void;
+  addColumn: (column: TColumn) => void;
   deleteColumn: (id: string) => void;
 }

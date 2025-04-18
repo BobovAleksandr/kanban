@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 export default function Card({ id, imageUrl, theme, description, tags }: TCard) {
   return (
     <Sheet>
-      <SheetContent className="sm:max-w-120">
+      <SheetContent className="sm:max-w-100">
         <CardSheetContent
           id={id}
           imageUrl={imageUrl}

@@ -2,24 +2,70 @@
 
 import useKanbanStore from "@/app/store/store";
 import Card from "./Card";
-import {TColumn} from "@/app/types";
-import {selectCards} from "@/app/store/store";
-import {Button} from "@/components/ui/button";
-import {Menu} from "lucide-react";
-import {Sheet, SheetContent, SheetTrigger} from "@/components/ui/sheet";
+import { TColumn } from "@/app/types";
+import { selectCards } from "@/app/store/store";
+import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import ColumnSheetContent from "@/app/components/ColumnSheetContent";
+import { Input } from "@/components/ui/input";
+import { CornerRightDown } from "lucide-react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from "sonner";
 
-export default function Column({id, title, cardIds, titleColor}: TColumn) {
+type CardFormInputs = {
+  description: string
+}
+
+export default function Column({ id, title, cardIds, titleColor }: TColumn) {
   const cards = useKanbanStore(selectCards);
+  const addCard = useKanbanStore(state => state.addCard);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+  } = useForm<CardFormInputs>();
+
+  const onSubmit: SubmitHandler<CardFormInputs> = (data) => {
+    if (data.description.trim() === '') {
+      toast.error('Это поле не может быть пустым')
+      return
+    }
+
+    addCard(id, {
+      id: Date.now().toString(),
+      description: data.description,
+      imageUrl: "",
+      deadline: "",
+      theme: "",
+      tags: [],
+      onDelete: () => {}
+    });
+    reset();
+  };
 
   return (
-    <li className="max-w-[300px] w-full flex-shrink-0">
-      <section className="relative group bg-white rounded-lg p-4">
-        <h2 className="text-lg font-bold mb-4 text-center block rounded-lg" style={{backgroundColor: titleColor}}>
+    <li className="max-w-[280px] w-full flex-shrink-0">
+      <section className="relative group bg-white rounded-lg p-4 flex flex-col gap-4">
+        <h2 className="text-lg font-bold text-center block rounded-lg" style={{ backgroundColor: titleColor }}>
           {title}
-          </h2>
+        </h2>
+      <form className="flex" onSubmit={handleSubmit(onSubmit)}>
+        <Input 
+          type="text"
+          placeholder="Добавить карточку"
+          minLength={1} 
+          required
+          autoComplete="off"
+          {...register("description")}
+        />
+        <Button variant="ghost" size="icon" type="submit">
+          <CornerRightDown />
+        </Button>
+      </form>
         <Sheet>
-          <SheetContent className="sm:max-w-120">
+          <SheetContent className="sm:max-w-100">
             <ColumnSheetContent
               id={id}
               title={title}
@@ -33,7 +79,7 @@ export default function Column({id, title, cardIds, titleColor}: TColumn) {
               size="icon"
               className="absolute right-4 top-4 w-7 h-7 opacity-0 group-hover:opacity-100 transition-all duration-200"
             >
-              <Menu/>
+              <Menu />
             </Button>
           </SheetTrigger>
         </Sheet>

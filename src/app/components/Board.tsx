@@ -7,7 +7,7 @@ export default function Board() {
   const columns = useKanbanStore((state) => state.columns);
 
   return (
-    <main className="flex list-none w-full justify-center relative h-full">
+    <main className="relative flex list-none w-full justify-center h-full">
       <ul className="flex gap-6 w-full justify-center h-full">
         {Object.values(columns).map((column) => (
           <Column
