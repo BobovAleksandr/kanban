@@ -18,7 +18,11 @@ type CardFormInputs = {
   description: string;
 };
 
-export default function Column({ id, title, cardIds, titleColor }: TColumn) {
+type ColumnProps = TColumn & {
+  isActive: boolean;
+};
+
+export default function Column({ id, title, cardIds, titleColor, isActive }: ColumnProps) {
   const cards = useKanbanStore(selectCards);
   const addCard = useKanbanStore((state) => state.addCard);
 
@@ -58,7 +62,10 @@ export default function Column({ id, title, cardIds, titleColor }: TColumn) {
     <li className="max-w-[280px] w-full flex-shrink-0">
       <section
         ref={setNodeRef}
-        className="relative group bg-white rounded-lg p-4 flex flex-col gap-4"
+        className={`relative group bg-white rounded-lg p-4 flex flex-col gap-4 transition-all duration-200 ${
+          isActive ? "shadow-lg transition-all duration-200" : "shadow-none transition-all duration-200"
+        }`}
+        style={isActive ? { boxShadow: "0 0 4px var(--ring)" } : undefined}
       >
         <h2
           className="text-lg font-bold text-center block rounded-lg"
