@@ -5,8 +5,39 @@ import { TCard } from "@/app/types";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { CardSheetContent } from "./CardSheetContent";
 import { Badge } from "@/components/ui/badge";
+import { useDraggable } from "@dnd-kit/core";
 
-export default function Card({ id, imageUrl, theme, description, tags }: TCard) {
+type CardProps = TCard & {
+  columnId: string;
+  index: number;
+};
+
+export default function Card({
+                               id,
+                               imageUrl,
+                               theme,
+                               description,
+                               tags,
+                               columnId,
+                               index,
+                             }: CardProps) {
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id,
+    data: {
+      columnId,
+      index,
+    },
+  });
+
+  const style = transform
+    ? {
+      transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+      zIndex: isDragging ? 1000 : "auto",
+      opacity: isDragging ? 0.8 : 1,
+      boxShadow: isDragging ? "0 4px 12px rgba(0, 0, 0, 0.2)" : "none",
+    }
+    : undefined;
+
   return (
     <Sheet>
       <SheetContent className="sm:max-w-100">
@@ -19,7 +50,13 @@ export default function Card({ id, imageUrl, theme, description, tags }: TCard) 
         />
       </SheetContent>
       <SheetTrigger asChild>
-        <li className="relative group flex flex-col gap-4 bg-white rounded-lg p-2 border-1 hover:cursor-pointer">
+        <li
+          ref={setNodeRef}
+          style={style}
+          {...listeners}
+          {...attributes}
+          className="relative group flex flex-col gap-4 bg-white rounded-lg p-2 border-1 hover:cursor-pointer"
+        >
           {theme && (
             <p className="text-sm text-(--ring) overflow-hidden text-ellipsis text-nowrap">
               {theme}

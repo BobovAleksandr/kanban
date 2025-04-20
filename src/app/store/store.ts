@@ -82,21 +82,20 @@ const useKanbanStore = create<TState>()(
           'updateCardTheme'
         );
       },
-
       addCard: (columnId: string, card: TCard) => {
         set((state) => ({
-          cards: {
-            ...state.cards,
-            [card.id]: card
-          },
-          columns: {
-            ...state.columns,
-            [columnId]: {
-              ...state.columns[columnId],
-              cardIds: [...state.columns[columnId].cardIds, card.id]
+            cards: {
+              ...state.cards,
+              [card.id]: card
+            },
+            columns: {
+              ...state.columns,
+              [columnId]: {
+                ...state.columns[columnId],
+                cardIds: [...state.columns[columnId].cardIds, card.id]
+              }
             }
-          }
-        }),
+          }),
           false,
           'addCard'
         )
@@ -122,15 +121,67 @@ const useKanbanStore = create<TState>()(
           'deleteCard'
         );
       },
+      moveCard: (cardId: string, fromColumnId: string, toColumnId: string) => {
+        set(
+          (state) => {
+            if (fromColumnId === toColumnId) return state;
+
+            const fromColumn = state.columns[fromColumnId];
+            const toColumn = state.columns[toColumnId];
+
+            const updatedFromColumn = {
+              ...fromColumn,
+              cardIds: fromColumn.cardIds.filter(id => id !== cardId)
+            };
+
+            const updatedToColumn = {
+              ...toColumn,
+              cardIds: [...toColumn.cardIds, cardId]
+            };
+
+            return {
+              columns: {
+                ...state.columns,
+                [fromColumnId]: updatedFromColumn,
+                [toColumnId]: updatedToColumn
+              }
+            };
+          },
+          false,
+          'moveCard'
+        );
+      },
+      moveCardInColumn: (columnId: string, oldIndex: number, newIndex: number) => {
+        set(
+          (state) => {
+            const column = state.columns[columnId];
+            const newCardIds = [...column.cardIds];
+            const [removed] = newCardIds.splice(oldIndex, 1);
+            newCardIds.splice(newIndex, 0, removed);
+
+            return {
+              columns: {
+                ...state.columns,
+                [columnId]: {
+                  ...column,
+                  cardIds: newCardIds
+                }
+              }
+            };
+          },
+          false,
+          'moveCardInColumn'
+        );
+      },
       addColumn: (columnData: TColumn) => {
         set((state) => ({
-          columns: {
-            ...state.columns,
-            [columnData.id]: columnData
-          }
-        }),
-        false,
-        'addColumn')
+            columns: {
+              ...state.columns,
+              [columnData.id]: columnData
+            }
+          }),
+          false,
+          'addColumn')
       },
       deleteColumn: (id: string) => {
         set(
@@ -168,7 +219,6 @@ const useKanbanStore = create<TState>()(
     }
   )
 );
-
 
 // selectors
 

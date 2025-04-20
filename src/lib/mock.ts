@@ -1,4 +1,6 @@
-export const INITIAL_STATE = {
+import { TStore } from '@/app/types'
+
+export const INITIAL_STATE:TStore = {
   boards: {
     "board-1": {
       id: "board-1",
