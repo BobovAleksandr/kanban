@@ -2,17 +2,16 @@
 
 import useKanbanStore from "@/app/store/store";
 import Card from "./Card";
-import { TColumn } from "@/app/types";
-import { selectCards } from "@/app/store/store";
-import { Button } from "@/app/components/ui/button";
-import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/app/components/ui/sheet";
+import {TColumn} from "@/app/types";
+import {selectCards} from "@/app/store/store";
+import {Button} from "@/app/components/ui/button";
+import {Menu, CornerRightDown} from "lucide-react";
+import {Sheet, SheetContent, SheetTrigger} from "@/app/components/ui/sheet";
 import ColumnSheetContent from "@/app/components/ColumnSheetContent";
-import { Input } from "@/app/components/ui/input";
-import { CornerRightDown } from "lucide-react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { toast } from "sonner";
-import { useDroppable } from "@dnd-kit/core";
+import {Input} from "@/app/components/ui/input";
+import {useForm, SubmitHandler} from "react-hook-form";
+import {toast} from "sonner";
+import {useDroppable} from "@dnd-kit/core";
 
 type CardFormInputs = {
   description: string;
@@ -22,12 +21,11 @@ type ColumnProps = TColumn & {
   isActive: boolean;
 };
 
-export default function Column({ id, title, cardIds, titleColor, isActive }: ColumnProps) {
+export default function Column({id, title, cardIds, titleColor, isActive}: ColumnProps) {
   const cards = useKanbanStore(selectCards);
   const addCard = useKanbanStore((state) => state.addCard);
 
-
-  const { setNodeRef } = useDroppable({
+  const {setNodeRef} = useDroppable({
     id: `column-${id}`,
     data: {
       columnId: id,
@@ -54,7 +52,8 @@ export default function Column({ id, title, cardIds, titleColor, isActive }: Col
       theme: "",
       tags: [],
       columnId: id,
-      onDelete: () => {},
+      onDelete: () => {
+      },
     });
     reset();
   };
@@ -63,31 +62,33 @@ export default function Column({ id, title, cardIds, titleColor, isActive }: Col
     <li className="max-w-[280px] w-full flex-shrink-0">
       <section
         ref={setNodeRef}
-        className={`relative group bg-white rounded-lg p-4 flex flex-col gap-4 transition-all duration-200 ${
-          isActive ? "shadow-lg transition-all duration-200" : "shadow-none transition-all duration-200"
+        className={`relative bg-white rounded-lg p-4 flex flex-col gap-4 transition-all duration-200 ${
+          isActive ? "shadow-lg" : "shadow-none"
         }`}
-        style={isActive ? { boxShadow: "0 0 4px var(--ring)" } : undefined}
+        style={isActive ? {boxShadow: "0 0 4px var(--ring)"} : undefined}
       >
-        <h2
-          className="text-lg font-bold text-center block rounded-lg"
-          style={{ backgroundColor: titleColor }}
-        >
-          {title}
-        </h2>
-        <form className="flex" onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            type="text"
-            placeholder="Добавить карточку"
-            minLength={1}
-            required
-            autoComplete="off"
-            {...register("description")}
-          />
-          <Button variant="ghost" size="icon" type="submit">
-            <CornerRightDown />
-          </Button>
-        </form>
         <Sheet>
+          <SheetTrigger asChild>
+            <h2
+              className="title-hover text-lg font-bold text-center block rounded-lg select-none hover:cursor-pointer"
+              style={{backgroundColor: titleColor}}
+            >
+              {title}
+            </h2>
+          </SheetTrigger>
+          <form className="flex" onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              type="text"
+              placeholder="Добавить карточку"
+              minLength={1}
+              required
+              autoComplete="off"
+              {...register("description")}
+            />
+            <Button variant="ghost" size="icon" type="submit">
+              <CornerRightDown/>
+            </Button>
+          </form>
           <SheetContent className="sm:max-w-100">
             <ColumnSheetContent
               id={id}
@@ -96,17 +97,8 @@ export default function Column({ id, title, cardIds, titleColor, isActive }: Col
               cardIds={cardIds}
             />
           </SheetContent>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute right-4 top-4 w-7 h-7 opacity-0 group-hover:opacity-100 transition-all duration-200"
-            >
-              <Menu />
-            </Button>
-          </SheetTrigger>
         </Sheet>
-        <ul className="flex flex-col gap-4">
+        <ul className="flex flex-col gap-4 empty:hidden">
           {cardIds.map((cardId, index) => {
             const card = cards[cardId];
             if (!card) return null;
@@ -117,7 +109,8 @@ export default function Column({ id, title, cardIds, titleColor, isActive }: Col
                 description={card.description}
                 imageUrl={card.imageUrl}
                 deadline={card.deadline}
-                onDelete={() => {}}
+                onDelete={() => {
+                }}
                 theme={card.theme}
                 tags={card.tags}
                 columnId={id}

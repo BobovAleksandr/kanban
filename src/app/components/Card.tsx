@@ -6,6 +6,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/app/components/ui/sheet";
 import { CardSheetContent } from "./CardSheetContent";
 import { Badge } from "@/app/components/ui/badge";
 import { useDraggable } from "@dnd-kit/core";
+import { Move } from "lucide-react";
 
 type CardProps = TCard & {
   columnId: string;
@@ -51,10 +52,7 @@ export default function Card({
       </SheetContent>
       <SheetTrigger asChild>
         <li
-          ref={setNodeRef}
           style={style}
-          {...listeners}
-          {...attributes}
           className="relative group flex flex-col gap-4 bg-white rounded-lg p-2 border-1 hover:cursor-pointer"
         >
           {theme && (
@@ -62,6 +60,14 @@ export default function Card({
               {theme}
             </p>
           )}
+          <div
+            className="absolute right-1 top-1 z-5 w-6 h-6 flex opacity-0 items-center justify-center hover:bg-accent group-hover:opacity-100 rounded-lg transition-all duration-200"
+            ref={setNodeRef}
+            {...listeners}
+            {...attributes}
+          >
+            <Move className="block w-4 h-4"/>
+          </div>
           {imageUrl && (
             <div className="w-full relative aspect-[16/9] rounded-lg overflow-hidden">
               <Image
