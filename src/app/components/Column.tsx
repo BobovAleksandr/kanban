@@ -5,7 +5,7 @@ import Card from "./Card";
 import {TColumn} from "@/app/types";
 import {selectCards} from "@/app/store/store";
 import {Button} from "@/app/components/ui/button";
-import {Menu, CornerRightDown} from "lucide-react";
+import {CornerRightDown} from "lucide-react";
 import {Sheet, SheetContent, SheetTrigger} from "@/app/components/ui/sheet";
 import ColumnSheetContent from "@/app/components/ColumnSheetContent";
 import {Input} from "@/app/components/ui/input";
