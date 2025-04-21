@@ -32,6 +32,11 @@ npm start
 5. Компоненты shadcn
 
 ## Структура
+- ``` app/components ``` - компоненты
+- ``` app/lib ``` - моовые данные для первого запуска
+- ``` app/store ``` - стор приложения (Zutand)
+- ``` app/types ``` - типы TypeScript
+- ``` app/utils ``` - утилитарные функции
 
 
 ## Roadmap
