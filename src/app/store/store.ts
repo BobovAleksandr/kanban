@@ -106,6 +106,7 @@ const useKanbanStore = create<TState>()(
         deleteCard: (id: string) => {
           set(
             (state) => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               const { [id]: _, ...restCards } = state.cards;
               const updatedColumns = { ...state.columns };
 

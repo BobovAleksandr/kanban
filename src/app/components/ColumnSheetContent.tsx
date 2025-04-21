@@ -4,31 +4,30 @@ import { TColumn } from "@/app/types";
 import { Input } from "@/app/components/ui/input";
 import { SheetTitle, SheetDescription } from "@/app/components/ui/sheet";
 import useKanbanStore from "@/app/store/store";
-import React, { useCallback } from "react";
+import React, { useMemo } from "react";
 import { Label } from "@/app/components/ui/label"
 import { toast } from "sonner";
 import { debounce } from "lodash";
 import DeletePopover from "./DeletePopover";
 
 export default function ColumnSheetContent({ id, title, titleColor }: TColumn) {
-
   const updateTitle = useKanbanStore(state => state.updateColumnTitle);
   const updateColor = useKanbanStore(state => state.updateColumnTitleColor);
   const deleteColumn = useKanbanStore(state => state.deleteColumn);
 
-  const debouncedUpdateColor = useCallback(
-    debounce((columnId: string, color: string) => {
+  const debouncedUpdateColor = useMemo(
+    () => debounce((columnId: string, color: string) => {
       updateColor(columnId, color);
     }, 200),
-    [] 
-  )
+    [updateColor]
+  );
 
-  const debouncedUpdateTitle = useCallback(
-    debounce((columnId: string, title: string) => {
+  const debouncedUpdateTitle = useMemo(
+    () => debounce((columnId: string, title: string) => {
       updateTitle(columnId, title);
     }, 200),
-    [] 
-  )
+    [updateTitle]
+  );
 
   const handleChangeTitleColor = (event: React.ChangeEvent<HTMLInputElement>) => {
     debouncedUpdateColor(id, event.target.value);
@@ -43,6 +42,13 @@ export default function ColumnSheetContent({ id, title, titleColor }: TColumn) {
       debouncedUpdateTitle(id, newTitle);
     }
   }
+
+  React.useEffect(() => {
+    return () => {
+      debouncedUpdateColor.cancel();
+      debouncedUpdateTitle.cancel();
+    };
+  }, [debouncedUpdateColor, debouncedUpdateTitle]);
 
   return (
     <div className="p-4 flex flex-col h-full justify-between gap-8">

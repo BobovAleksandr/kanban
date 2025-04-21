@@ -1,5 +1,3 @@
-import {UniqueIdentifier} from "@dnd-kit/core";
-
 export type TBoard = {
   id: string;
   title: string,
