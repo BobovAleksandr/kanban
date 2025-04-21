@@ -1,6 +1,6 @@
-import { TStore } from '@/app/types'
+import {TStore} from '@/app/types'
 
-export const INITIAL_STATE:TStore = {
+export const INITIAL_STATE: TStore = {
   boards: {
     "board-1": {
       id: "board-1",
@@ -41,6 +41,7 @@ export const INITIAL_STATE:TStore = {
       imageUrl: "",
       description: "Пример самой простой карточки",
       tags: [],
+      columnId: 'column-1',
       deadline: "06-06-06",
       onDelete: () => {
       }
@@ -51,6 +52,7 @@ export const INITIAL_STATE:TStore = {
       imageUrl: "/images/cat.webp",
       description: "В карточку можно загрузить картинку с котиком",
       tags: [],
+      columnId: 'column-1',
       deadline: "06-06-06",
       onDelete: () => {
       }
@@ -61,6 +63,7 @@ export const INITIAL_STATE:TStore = {
       imageUrl: "",
       description: "Колонки тоже можно добавлять и удалять, а еще менять цвет фона заголовка",
       tags: [],
+      columnId: 'column-3',
       deadline: "06-06-06",
       onDelete: () => {
       }
@@ -71,16 +74,7 @@ export const INITIAL_STATE:TStore = {
       imageUrl: "",
       description: "У карточки может быть тема",
       tags: [],
-      deadline: "06-06-06",
-      onDelete: () => {
-      }
-    },
-    "card-5": {
-      id: "card-5",
-      theme: "theme-5",
-      imageUrl: "",
-      description: "Task 5 with some description",
-      tags: ["soon", "asap", "warning"],
+      columnId: 'column-1',
       deadline: "06-06-06",
       onDelete: () => {
       }
@@ -91,6 +85,7 @@ export const INITIAL_STATE:TStore = {
       imageUrl: "/images/dnd.webp",
       description: "Карточки можно перетаскивать между колонками, добавлять и удалять",
       tags: [],
+      columnId: 'column-2',
       deadline: "06-06-06",
       onDelete: () => {
       }

@@ -4,11 +4,11 @@ import useKanbanStore from "@/app/store/store";
 import Card from "./Card";
 import { TColumn } from "@/app/types";
 import { selectCards } from "@/app/store/store";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/app/components/ui/sheet";
 import ColumnSheetContent from "@/app/components/ColumnSheetContent";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/app/components/ui/input";
 import { CornerRightDown } from "lucide-react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
@@ -25,6 +25,7 @@ type ColumnProps = TColumn & {
 export default function Column({ id, title, cardIds, titleColor, isActive }: ColumnProps) {
   const cards = useKanbanStore(selectCards);
   const addCard = useKanbanStore((state) => state.addCard);
+
 
   const { setNodeRef } = useDroppable({
     id: `column-${id}`,

@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import { TCard } from "@/app/types";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/app/components/ui/sheet";
 import { CardSheetContent } from "./CardSheetContent";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/app/components/ui/badge";
 import { useDraggable } from "@dnd-kit/core";
 
 type CardProps = TCard & {

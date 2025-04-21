@@ -1,18 +1,18 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/app/components/ui/badge";
 import Image from "next/image";
-import { SheetTitle } from "@/components/ui/sheet";
+import { SheetTitle } from "@/app/components/ui/sheet";
 import React from "react";
 import useKanbanStore, { selectAllThemes } from "@/app/store/store";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/app/components/ui/textarea";
+import { Input } from "@/app/components/ui/input";
 import { useShallow } from "zustand/react/shallow";
 import { Trash, Pencil } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import { toast } from "sonner";
 import DeletePopover from "./DeletePopover";
-import { Label } from "@/components/ui/label";
+import { Label } from "@/app/components/ui/label";
 import uploadImage from '@/app/utils/loadImage'
 
 interface CardSheetContentProps {

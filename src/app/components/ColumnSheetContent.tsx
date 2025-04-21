@@ -1,11 +1,11 @@
 "use client";
 
 import { TColumn } from "@/app/types";
-import { Input } from "@/components/ui/input";
-import { SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { Input } from "@/app/components/ui/input";
+import { SheetTitle, SheetDescription } from "@/app/components/ui/sheet";
 import useKanbanStore from "@/app/store/store";
 import React, { useCallback } from "react";
-import { Label } from "@/components/ui/label"
+import { Label } from "@/app/components/ui/label"
 import { toast } from "sonner";
 import { debounce } from "lodash";
 import DeletePopover from "./DeletePopover";

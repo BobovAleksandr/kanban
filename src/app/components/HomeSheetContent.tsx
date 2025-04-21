@@ -1,10 +1,10 @@
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { Label } from "@/app/components/ui/label";
+import { Button } from "@/app/components/ui/button";
 import { toast } from "sonner";
 import { useForm, SubmitHandler } from "react-hook-form";
 import useKanbanStore from "../store/store";
-import { Input } from "@/components/ui/input";
-import { SheetTitle } from "@/components/ui/sheet";
+import { Input } from "@/app/components/ui/input";
+import { SheetTitle } from "@/app/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 type SettingsFormInputs = {

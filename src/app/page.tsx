@@ -4,8 +4,8 @@ import Board from "@/app/components/Board";
 import useKanbanStore from "./store/store";
 import { selectBoards } from "./store/store";
 import { Settings2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/app/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/app/components/ui/sheet";
 import HomeSheetContent from "./components/HomeSheetContent";
 
 export default function Home() {

@@ -1,5 +1,5 @@
-import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/app/components/ui/popover";
+import { Button } from "@/app/components/ui/button";
 
 type DeletePopoverProps = {
   id: string;
